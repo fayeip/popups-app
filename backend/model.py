@@ -28,7 +28,7 @@ class Business(db.Model):
     city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'))
 
     city = db.relationship('City', back_populates='business')
-    categories = db.relationship('Category', secondary="businesscategories", back_populates='businesses')
+    categories = db.relationship('Category', lazy='subquery', secondary="businesscategories", back_populates='businesses')
 
     def __repr__(self):
         return f'<Business name={self.name}>'
@@ -50,7 +50,7 @@ class Business(db.Model):
                 'address_zip': self.address_zip, 
                 'display_phone': format_phonenumber(self.display_phone) if self.display_phone else "",  
                 'city_id': self.city_id,
-                'categories': [cat.name for cat in self.categories]}
+                'categories': [cat.to_dict() for cat in self.categories]}
 
 
 class City(db.Model):
@@ -80,7 +80,7 @@ class Category(db.Model):
     alias = db.Column(db.String, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-    businesses = db.relationship('Business', secondary="businesscategories", back_populates='categories')
+    businesses = db.relationship('Business', lazy='subquery', secondary="businesscategories", back_populates='categories')
 
 
     def __repr__(self):

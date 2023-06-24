@@ -81,6 +81,9 @@ def get_all_businesses():
 def get_all_categories():
     return Category.query.all() 
 
+# def get_businesses_by_category(c_alias):
+#     return Business.query.filter(Business.categories == c_alias).all()
+
 
 
 if __name__ == "__main__":

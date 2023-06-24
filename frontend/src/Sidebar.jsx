@@ -3,13 +3,16 @@ import CategoryButton from './CategoryButton';
 
 
 function Sidebar(props) {
-  const activeCategories = props.activeCategories; 
-  console.log("inside Sidebar"); 
+  const categories = props.categories; 
   const catButtons = []; 
 
-  for (const cat of Object.values(activeCategories)) {
-      console.log(cat); 
-      const catBtn = (<CategoryButton categoryName={cat.name} />);
+  for (const cat of Object.values(categories)) {
+      const catBtn = (
+        <CategoryButton key={cat.alias} 
+                        categoryName={cat.name} 
+                        categoryAlias={cat.alias} 
+                        handleCatButtonClick={props.handleCatButtonClick} />
+        );
       catButtons.push(catBtn); 
   } 
 

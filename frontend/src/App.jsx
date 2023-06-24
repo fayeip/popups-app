@@ -7,39 +7,58 @@ import AllBusinessesPage from './AllBusinessesPage';
 import Sidebar from './Sidebar'; 
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 
+
 function App() {
   const [businesses, setBusinesses] = useState({});
-  const [activeCategories, setActiveCategories] = useState({}); 
+  const [categories, setCategories] = useState({}); 
+  const [activeBusinesses, setActiveBusinesses] = useState({}); 
+  const [activeCategory, setActiveCategory] = useState(""); 
 
   useEffect(() => {
     fetch('/api/businesses')
       .then((response) => response.json())
       .then((businesses) => {
-        console.log("inside fetch"); 
         setBusinesses(businesses);
+        setActiveBusinesses(businesses); 
       });
   }, []);
 
-  console.log(businesses); 
 
   useEffect(() => {
     fetch('/api/categories')
     .then((response) => response.json())
-    .then((activeCategories) => {
-      setActiveCategories(activeCategories);
+    .then((categories) => {
+      setCategories(categories);
     });
     }, []);
   
-  console.log(activeCategories); 
+
+  function handleCatButtonClick(evt) {
+    let catClicked = evt.target.value; 
+    setActiveCategory(catClicked);
+    filterBusinesses(catClicked); 
+  }
+
+
+  function filterBusinesses(catAlias) {
+    let filteredBiz = []; 
+    for (const biz of Object.values(businesses)) {
+      if (biz.categories.map(o => o.alias).includes(catAlias)) {
+        filteredBiz.push(biz); 
+      }
+    }
+    setActiveBusinesses(filteredBiz); 
+  }
+
 
   return (
     <Container fluid>
       <Row>
         <Col md={2}>
-          <Sidebar activeCategories={activeCategories} /> 
+          <Sidebar categories={categories} handleCatButtonClick={handleCatButtonClick} /> 
         </Col>
         <Col md={10}>
-          <AllBusinessesPage businesses={businesses} /> 
+          <AllBusinessesPage businesses={activeBusinesses} /> 
         </Col>
       </Row>
     </Container>

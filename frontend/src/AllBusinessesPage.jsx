@@ -4,7 +4,6 @@ import BizCard from './BizCard';
 
 function AllBusinessesPage(props) {
   const allBusinesses = props.businesses; 
-  console.log("inside AllBusinessesPage"); 
   const bizCards = []; 
 
   for (const biz of Object.values(allBusinesses)) {
