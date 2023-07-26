@@ -1,5 +1,7 @@
 import Row from 'react-bootstrap/Row'; 
+import Col from 'react-bootstrap/Col'; 
 import CategoryButton from './CategoryButton';
+// import Form from 'react-bootstrap/Form'; 
 
 
 function Sidebar(props) {
@@ -18,7 +20,15 @@ function Sidebar(props) {
 
   return (
       <Row>
+        <Col>
+        {/* <Form>
+          <Form.Group controlId="searchBiz">
+            <Form.Control type="text" />
+          </Form.Group>
+          <Button variant="primary">Search</Button> 
+        </Form> */}
         {catButtons} 
+        </Col>
       </Row>
   );
 }

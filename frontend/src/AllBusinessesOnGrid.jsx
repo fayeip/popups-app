@@ -2,7 +2,8 @@ import Row from 'react-bootstrap/Row';
 import BizCard from './BizCard';
 
 
-function AllBusinessesPage(props) {
+
+function AllBusinessesOnGrid(props) {
   const allBusinesses = props.businesses; 
   const bizCards = []; 
 
@@ -36,4 +37,4 @@ function AllBusinessesPage(props) {
 
 }
 
-export default AllBusinessesPage; 
+export default AllBusinessesOnGrid; 
